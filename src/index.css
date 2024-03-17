@@ -1,0 +1,61 @@
+.hhh{
+  height: 100vh;
+  width: 100%;
+
+}
+.reg_box{
+  margin-left:0 auto !important;
+  text-align: right;
+  margin-right: 69px;
+}
+.reg_hdng{
+  font-size: 40px;
+  font-weight: 700;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.reg_input{
+  width: 249.41px ;
+  text-align: right !important;
+  margin-left: auto;
+  margin-right: 230px;
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
+  width: 100%;
+  margin: 10px !important;
+}
+.reg_p{
+  font-size: 14px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.reg_error{
+  margin-left: 15px;
+}
+.password{
+  position: relative;
+
+}
+.eye{
+  position: absolute;
+  top: 50%;
+  right: 2px ;
+  transform: translateY(-50%);
+}
+.gZmPOF {
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+.alart{
+  padding: 2px 20px;
+  background-color: rgb(40, 25, 25);
+  color: rgb(248, 239, 239);
+  text-align: left;
+  border-radius: 10px;
+  margin-left: 10px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 14px;
+}
+.alart_icn_lgin{
+  color: red;
+  padding-right: 10px;
+}
