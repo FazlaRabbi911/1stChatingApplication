@@ -9,6 +9,7 @@ import Registration from './pages/Registration';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { ToastContainer, toast } from 'react-toastify';
+import Forgot from './pages/Forgot';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Registration/>}></Route>
         <Route path="/home" element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
+        <Route path="/Forgot" element={<Forgot/>}></Route>
       </Route>
 
     )

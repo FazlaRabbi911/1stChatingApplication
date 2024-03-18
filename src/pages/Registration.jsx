@@ -6,13 +6,17 @@ import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
-import { getAuth, createUserWithEmailAndPassword,sendEmailVerification } from "firebase/auth";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    signInWithPopup,
+    GoogleAuthProvider 
+} from "firebase/auth";
 import { Watch } from 'react-loader-spinner'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
-
 
 
 const Registration = () => {
@@ -49,6 +53,12 @@ const Registration = () => {
             console.log("smal")
         }else {
             setloading(true)
+            let input1 = document.getElementById("outlined1")
+            let input2 = document.getElementById("outlined2")
+            let input3 = document.getElementById("outlined3")
+             input1.value = "";
+             input2.value = "";
+             input3.value = "";
             createUserWithEmailAndPassword(auth, Regdata.email, Regdata.password)
                 .then((userCredential) => {
                     setloading(false)
@@ -59,13 +69,6 @@ const Registration = () => {
                             autoClose: 5000,
                             theme: "dark",
                         });   
-                       
-                       let input1 = document.getElementById("outlined1")
-                       let input2 = document.getElementById("outlined2")
-                       let input3 = document.getElementById("outlined3")
-                        input1.value = "";
-                        input2.value = "";
-                        input3.value = "";
                         navigate("./login")   
                     });        
                 })
@@ -79,12 +82,33 @@ const Registration = () => {
                 });
         }
     }
+    let handleGLog =()=>{
+        // console.log("yesss")
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            toast.success('Ragistration successful,', {
+                position: "bottom-center",
+                autoClose: 5000,
+                theme: "dark",
+            });   
+            navigate("./home") 
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+             
 
+        });
+    }
   return (
     <Grid container spacing={2}>
     <Grid  xs={8} >
       <h2 >
         <div className='reg_box'>
+            <div className='dddd' onClick={handleGLog}>
+            <Images  className="Glogimg" src={"./src/assets/Google.png"}/>
+            </div>
             <h1 className='reg_hdng'>Get started with easily register</h1>
             <div className='reg_input'>
                 <TextField id="outlined1"  name='email' onChange={handleChange} label="email " variant="outlined" />

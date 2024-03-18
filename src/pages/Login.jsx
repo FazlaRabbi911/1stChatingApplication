@@ -7,10 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaExclamationCircle } from "react-icons/fa";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { FaRegEye } from "react-icons/fa";
+import { TbEyeClosed } from "react-icons/tb";
 
 const Login = () => {
+  let[openeye,setopeneye]=useState(false)
   let navigate = useNavigate()
   const auth = getAuth();
   let [data,setdata]=useState({
@@ -25,7 +27,6 @@ const Login = () => {
 
   let addinfo=(e)=>{
     setdata({...data,[e.target.name]:e.target.value})
-    console.log(data)
     seterrordata({...errordata,[e.target.name]:""})
   }
 
@@ -40,6 +41,10 @@ const Login = () => {
     }else if(data.password.length<6){
       seterrordata({...errordata,password:"password must be greater than 6"})
     }else{
+      // let input1 = document.getElementById("outlined3")
+      // let input2 = document.getElementById("outlined1")
+      // input1.value=""
+      // input2.value=""
       signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
           // Signed up 
@@ -58,11 +63,15 @@ const Login = () => {
         console.log(error.message )
         if(error.message.includes("auth/invalid-credential")){
           seterrordata({...errordata, email: "invalid credential"});
+          toast.error('verify your email first', {
+            position: "bottom-center",
+            theme: "dark",
+            autoClose: 3000
+            });
         }
-        
-        // else if(error.message.includes("auth/invalid-credential")){
-        //   seterrordata({...errordata, email: "Email already in use"});
-        // }
+        else if(error.message.includes("auth/invalid-credential")){
+          seterrordata({...errordata, email: "Email already in use"});
+        }
       });
     }
   }
@@ -75,10 +84,16 @@ const Login = () => {
       <div className="reg_input">
         <TextField id="outlined1"  onChange={addinfo} name='email'  label="email " variant="outlined" />
         {errordata.email && <div className='alart'  ><h2><FaExclamationCircle className='alart_icn_lgin' />{errordata.email}</h2></div>}
-        <TextField id="outlined1"  onChange={addinfo} name='password'  label="password " variant="outlined" />
+        <div className='password'>
+                    <TextField id="outlined3"  name='password' onChange={addinfo}type={openeye ? "text" : "password"} label="Password" variant="outlined" />
+                    {openeye &&   <FaRegEye className='eye' onClick={()=>{setopeneye(!openeye)}}/>}
+                    {!openeye &&    <TbEyeClosed className='eye'onClick={()=>{setopeneye(!openeye)}}/>}
+
+                </div>
         {errordata.password && <div className='alart'  ><h2><FaExclamationCircle className='alart_icn_lgin' />{errordata.password}</h2></div>}
         <Button onClick={handleclick} className='reg_btn' variant="contained">Login to Continue</Button>   
-          
+        <p className='forlink'><Link to={"/Forgot"}>forgot password?</Link></p>
+
       </div>    
     </div>
 
