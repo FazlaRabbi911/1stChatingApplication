@@ -54,7 +54,7 @@ const Login = () => {
               theme: "dark",
               autoClose: 3000
               });
-          navigate("/home")
+          navigate("/home/feed")
           console.log("hmm")
         })
       .catch((error) => {

@@ -71,7 +71,7 @@ const Registration = () => {
                         });   
                         navigate("./login")   
                     });        
-                })
+                }) 
                 .catch((error) => {
                     setloading(false)
                     const errorCode = error.code;
@@ -92,13 +92,11 @@ const Registration = () => {
                 autoClose: 5000,
                 theme: "dark",
             });   
-            navigate("./home") 
+            navigate("./home/feed") 
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
-             
-
         });
     }
   return (
@@ -125,14 +123,12 @@ const Registration = () => {
                     {!openeye &&    <TbEyeClosed className='eye'onClick={()=>{setopeneye(!openeye)}}/>}
 
                 </div>
-
                 {Errordata.password &&
                     <Alert className='reg_error' severity="error">{Errordata.password}</Alert>
                 }
                 {!loading &&
                     <Button onClick={handlesubmit} className='reg_btn' variant="contained">Sign up</Button>                
                 }
-
                 {loading &&
                     <Watch className="loading"
                     visible={true}

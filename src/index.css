@@ -87,3 +87,29 @@
 .Glogimg{
   margin-right: 250px;
 }
+.Navbox{
+  background-color: #5F35F5;
+  height: 100vh;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+}
+.Navpro{
+  width: 40%;
+  padding-top: 36px;
+}
+.Navpro_img{
+  width: 100%;
+}
+.icon{
+  padding-top: 30px;
+  font-size: 30px;
+  color: white;
+}
+.loguticon{
+  padding-top: 80px;
+  font-size: 30px;
+  color: white;
+}
