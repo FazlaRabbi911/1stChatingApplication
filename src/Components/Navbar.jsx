@@ -5,6 +5,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
+import { Link, useNavigate } from 'react-router-dom';
 // modal 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,8 +14,7 @@ import Modal from '@mui/material/Modal';
 // modal 
 // firebase
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-
+import { colors } from '@mui/material';
 // firebase
 // modal css
 const style = {
@@ -40,7 +40,7 @@ const Navbar = () => {
 
   let handlelogout=()=>{
     signOut(auth).then(() => {
-      navigation("/flogin")
+      navigation("/login")
     }).catch((error) => {
       console.log(error)
     });
@@ -51,29 +51,29 @@ const Navbar = () => {
         <Images  src="../src/assets/main_profile.png" alt="Main Profile Picture"/>
       </div>
           <div className="naviconmain">
-          <div >  <FaHome  className='icon'/></div>
-          <div ><AiOutlineMessage  className='icon'/></div>
-          <div ><FaBell className='icon'/></div>
-          <div ><IoSettingsOutline  className='icon'/></div>
-          <div > <TbLogout onClick={handleOpen} className='loguticon'/>
-          <div>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                Confirm logout
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <Button  onClick={handlelogout} variant="contained" >Logout</Button>
-                  <Button variant="outlined" onClick={handleClose}>Cancel</Button>
-                </Typography>
-              </Box>
-            </Modal>
-          </div>
+            <div > <Link className='icon' to='/home/feed'><FaHome className='iconmain'/></Link> </div>
+            <div ><Link className='icon' to='/home/massage'><AiOutlineMessage className='iconmain' /></Link> </div>
+            <div><Link className='icon active' to='/home/massage'><FaBell className='iconmain'/></Link></div>
+            <div><Link className='icon' to='/home/setting'><IoSettingsOutline className='iconmain'/></Link></div>
+            <div > <TbLogout onClick={handleOpen} className='loguticon'/>
+            <div>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Confirm logout
+                  </Typography>
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Button  onClick={handlelogout} variant="contained" >Logout</Button>
+                    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                  </Typography>
+                </Box>
+              </Modal>
+            </div>
           </div>
         </div>
     </div>
