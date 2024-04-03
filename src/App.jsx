@@ -13,6 +13,7 @@ import Forgot from './pages/Forgot';
 import Massage from './pages/Massage';
 import Setting from './pages/Setting';
 import Feed from './pages/Feed';
+import Notification from './pages/Notification';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/" element={<Registration/>}></Route>
         <Route path="/home" element={<Home/>}>
           <Route path="feed" element={<Feed/>}></Route>
+          <Route path="notification" element={<Notification/>}></Route>
           <Route path="massage" element={<Massage/>}></Route>
           <Route path="setting" element={<Setting/>}></Route>
         </Route>

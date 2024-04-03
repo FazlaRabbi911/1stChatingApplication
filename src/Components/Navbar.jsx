@@ -5,7 +5,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaBell } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 // modal 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -31,7 +31,8 @@ const style = {
 // modal css
 
 const Navbar = () => {
-
+  let location =useLocation()
+  console.log(location.pathname)
   const auth = getAuth();
   let navigation = useNavigate()
   const [open, setOpen] = React.useState(false);
@@ -51,10 +52,10 @@ const Navbar = () => {
         <Images  src="../src/assets/main_profile.png" alt="Main Profile Picture"/>
       </div>
           <div className="naviconmain">
-            <div > <Link className='icon' to='/home/feed'><FaHome className='iconmain'/></Link> </div>
-            <div ><Link className='icon' to='/home/massage'><AiOutlineMessage className='iconmain' /></Link> </div>
-            <div><Link className='icon active' to='/home/massage'><FaBell className='iconmain'/></Link></div>
-            <div><Link className='icon' to='/home/setting'><IoSettingsOutline className='iconmain'/></Link></div>
+            <div> <Link className={location.pathname =="/home/feed" && "active" } to='/home/feed'><FaHome className='icon'/></Link> </div>
+            <div ><Link className={location.pathname =="/home/massage" && "active" }  to='/home/massage'><AiOutlineMessage className='icon ' /></Link> </div>
+            <div><Link  className={location.pathname =="/home/notification" && "active" }  to='/home/notification'><FaBell className='icon'/></Link></div>
+            <div><Link  className={location.pathname =="/home/setting" && "active" }  to='/home/setting'><IoSettingsOutline className='icon'/></Link></div>
             <div > <TbLogout onClick={handleOpen} className='loguticon'/>
             <div>
               <Modal
