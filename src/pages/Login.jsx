@@ -10,8 +10,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
+import { useDispatch } from 'react-redux';
+import { activeuser } from "";
 
 const Login = () => {
+
+  let dispatch = useDispatch()
   let[openeye,setopeneye]=useState(false)
   let navigate = useNavigate()
   const auth = getAuth();
@@ -55,8 +59,9 @@ const Login = () => {
               autoClose: 3000
               });
           navigate("/home/feed")
-          console.log("hmm")
-        })
+          dispatch(activeuser)
+
+        }) 
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
