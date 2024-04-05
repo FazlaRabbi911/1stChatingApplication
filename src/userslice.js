@@ -4,11 +4,11 @@ export const counterSlice = createSlice({
   name: 'user',
   initialState: {
     value: null,
-    tintatin:"hhh"
   },
   reducers: {
-    activeuser: (state) => {
-        console.log("yess")
+    activeuser: (state,action) => {
+        state.value = action.payload
+        console.log(state.value)
     },
   },
 })

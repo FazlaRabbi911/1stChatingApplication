@@ -11,7 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
 import { useDispatch } from 'react-redux';
-import { activeuser } from "";
+import { activeuser } from '../userslice';
 
 const Login = () => {
 
@@ -27,8 +27,7 @@ const Login = () => {
     email:"",
     password:""
   })
-
-
+  
   let addinfo=(e)=>{
     setdata({...data,[e.target.name]:e.target.value})
     seterrordata({...errordata,[e.target.name]:""})
@@ -59,8 +58,7 @@ const Login = () => {
               autoClose: 3000
               });
           navigate("/home/feed")
-          dispatch(activeuser)
-
+              dispatch(activeuser(userCredential.user))
         }) 
       .catch((error) => {
         const errorCode = error.code;
