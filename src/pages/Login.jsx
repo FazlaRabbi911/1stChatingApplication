@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid } from '@mui/material';
 import Images from '../Components/Images';
 import TextField from '@mui/material/TextField';
@@ -10,7 +10,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { activeuser } from '../userslice';
 
 const Login = () => {
@@ -19,6 +19,14 @@ const Login = () => {
   let[openeye,setopeneye]=useState(false)
   let navigate = useNavigate()
   const auth = getAuth();
+
+  let activedata = useSelector((state)=>state?.storeuser?.value)
+  useEffect(()=>{
+    if(activedata?.email){
+      navigate("/home/feed")
+    }
+    
+  },[])
   let [data,setdata]=useState({
     email:"",
     password:""
@@ -57,8 +65,11 @@ const Login = () => {
               theme: "dark",
               autoClose: 3000
               });
-          navigate("/home/feed")
-              dispatch(activeuser(userCredential.user))
+            localStorage.setItem("userAppdata",JSON.stringify(userCredential.user))
+            // userAppdata is the key name of application data in web 
+            // JSON.stringify making (userCredential.user) object to string 
+            dispatch(activeuser(userCredential.user))
+            navigate("/home/feed")
         }) 
       .catch((error) => {
         const errorCode = error.code;

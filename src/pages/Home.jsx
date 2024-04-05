@@ -3,18 +3,17 @@ import Grid from '@mui/material/Grid';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import { useSelector } from 'react-redux';
-import { activeuser } from '../userslice';
 
 const Home = () => {
   let navigate = useNavigate()
   let data = useSelector((state)=>state?.storeuser?.value)
-  console.log(data)
+
   useEffect(()=>{
     if(!data?.email){
       navigate("/login")
-      console.log("problem")
     }
   },[])
+
   return (
     <Grid container spacing={2}>
     <Grid item xs={4}>

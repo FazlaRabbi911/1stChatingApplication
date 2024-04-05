@@ -14,7 +14,8 @@ import Modal from '@mui/material/Modal';
 // modal 
 // firebase
 import { getAuth, signOut } from "firebase/auth";
-import { colors } from '@mui/material';
+import { useDispatch } from 'react-redux';
+
 // firebase
 // modal css
 const style = {
@@ -31,8 +32,8 @@ const style = {
 // modal css
 
 const Navbar = () => {
+  let dispatch = useDispatch()
   let location =useLocation()
-  console.log(location.pathname)
   const auth = getAuth();
   let navigation = useNavigate()
   const [open, setOpen] = React.useState(false);
@@ -41,6 +42,8 @@ const Navbar = () => {
 
   let handlelogout=()=>{
     signOut(auth).then(() => {
+      localStorage.removeItem("userAppdata")
+      dispatch(activeuser(null))
       navigation("/login")
     }).catch((error) => {
       console.log(error)
