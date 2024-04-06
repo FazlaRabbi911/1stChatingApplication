@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 // firebase
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch } from 'react-redux';
+import { activeuser } from '../userslice';
 
 // firebase
 // modal css
@@ -45,6 +46,7 @@ const Navbar = () => {
       localStorage.removeItem("userAppdata")
       dispatch(activeuser(null))
       navigation("/login")
+      console.log("yess")
     }).catch((error) => {
       console.log(error)
     });
