@@ -29,7 +29,6 @@ const App = () => {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/Forgot" element={<Forgot/>}></Route>
       </Route>
-
     )
   );
   return (

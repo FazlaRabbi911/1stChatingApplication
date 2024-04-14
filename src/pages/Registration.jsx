@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Registration = () => {
     const auth = getAuth();
     let navigate =useNavigate()
