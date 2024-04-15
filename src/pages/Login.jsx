@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import Images from '../Components/Images';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaExclamationCircle } from "react-icons/fa";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";

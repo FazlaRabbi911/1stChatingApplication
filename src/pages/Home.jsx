@@ -13,7 +13,6 @@ const Home = () => {
       navigate("/login")
     }
   },[])
-
   return (
     <Grid container spacing={2}>
     <Grid item xs={4}>
