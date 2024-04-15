@@ -25,8 +25,8 @@ const Login = () => {
     if(activedata?.email){
       navigate("/home/feed")
     }
-    
   },[])
+  
   let [data,setdata]=useState({
     email:"",
     password:""

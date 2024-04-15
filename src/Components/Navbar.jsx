@@ -37,6 +37,7 @@ const Navbar = () => {
   let location =useLocation()
   const auth = getAuth();
   let navigation = useNavigate()
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
