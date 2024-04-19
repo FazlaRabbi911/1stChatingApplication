@@ -14,7 +14,7 @@ import Modal from '@mui/material/Modal';
 // modal 
 // firebase
 import { getAuth, signOut } from "firebase/auth";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { activeuser } from '../userslice';
 
 // firebase
@@ -33,8 +33,10 @@ const style = {
 // modal css
 
 const Navbar = () => {
+  let userinfo = useSelector((state)=>state.storeuser.value)
+  console.log(userinfo.displayName)
   let dispatch = useDispatch()
-  let location =useLocation()
+  let location = useLocation()
   const auth = getAuth();
   let navigation = useNavigate()
   
@@ -55,7 +57,8 @@ const Navbar = () => {
   return (
     <div className='Navbox'>
       <div className="Navpro">
-        <Images  src="../src/assets/main_profile.png" alt="Main Profile Picture"/>
+        <Images className="Navpro_img" src={userinfo.photoURL} alt="Main Profile Picture"/>
+        <h2>{userinfo.displayName}</h2>
       </div>
           <div className="naviconmain">
             <div> <Link className={location.pathname =="/home/feed" && "active" } to='/home/feed'><FaHome className='icon'/></Link> </div>
