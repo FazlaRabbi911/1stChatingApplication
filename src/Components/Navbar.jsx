@@ -153,7 +153,6 @@ const Navbar = () => {
                       style={{ width: "100%", float: "left", height: "300px" }}
                     />
                   </Typography>
-
                 </Box>
               </Modal>
             </div>
