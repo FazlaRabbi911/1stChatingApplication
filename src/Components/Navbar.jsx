@@ -129,6 +129,7 @@ const Navbar = () => {
               >
                 <Box sx={style}>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <input type="file" />
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <Cropper
