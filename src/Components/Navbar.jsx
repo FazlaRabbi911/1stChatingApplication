@@ -132,22 +132,25 @@ const Navbar = () => {
                     <input type="file" />
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  <Cropper
-                    ref={cropperRef}
-                    style={{ height: 400, width: "100%" }}
-                    zoomTo={0.5}
-                    initialAspectRatio={1}
-                    preview=".img-preview"
-                    src={image}
-                    viewMode={1}
-                    minCropBoxHeight={10}
-                    minCropBoxWidth={10}
-                    background={false}
-                    responsive={true}
-                    autoCropArea={1}
-                    checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                    guides={true}
-                  />
+
+                    {/* coper code  */}
+                    <Cropper
+                      ref={cropperRef}
+                      style={{ height: 400, width: "100%" }}
+                      zoomTo={0.5}
+                      initialAspectRatio={1}
+                      preview=".img-preview"
+                      src={image}
+                      viewMode={1}
+                      minCropBoxHeight={10}
+                      minCropBoxWidth={10}
+                      background={false}
+                      responsive={true}
+                      autoCropArea={1}
+                      checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                      guides={true}
+                    />
+                    {/* coper code  */}
                     <h1>Preview</h1>
                     <div
                       className="img-preview"
