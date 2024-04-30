@@ -71,7 +71,9 @@ const Navbar = () => {
     });
   }
   // croper
-  const onChange = (e) => {
+
+  // profile upload 
+  const handelimgupload = (e) => {
     e.preventDefault();
     let files;
     if (e.dataTransfer) {
@@ -80,18 +82,19 @@ const Navbar = () => {
       files = e.target.files;
     }
     const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
     reader.onload = () => {
       setImage(reader.result);
     };
-    reader.readAsDataURL(files[0]);
+    console.log(files)
   };
-
+  
+   // profile upload 
+  //  crope data
   const getCropData = () => {
-    if (typeof cropperRef.current?.cropper !== "undefined") {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-    }
   };
-  // croper
+  // crope data 
   return (
     <div className='Navbox'>
       <div className="Navpro" onClick={handleOpenmodaltwo}>
@@ -128,8 +131,15 @@ const Navbar = () => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
+                    <div className='box'>
+                      <h1>Preview</h1>
+                      <div
+                        className="img-preview"
+                        style={{ width: "200px", float: "left", height: "200px" ,borderRadius:"50%"}}
+                      />
+                    </div>
                   <Typography id="modal-modal-title" variant="h6" component="h2">
-                    <input type="file" />
+                    <input onChange={handelimgupload} type="file" />
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
@@ -151,12 +161,9 @@ const Navbar = () => {
                       guides={true}
                     />
                     {/* coper code  */}
-                    <h1>Preview</h1>
-                    <div
-                      className="img-preview"
-                      style={{ width: "100%", float: "left", height: "300px" }}
-                    />
                   </Typography>
+                  <Button   variant="contained" onClick={getCropData} style={{marginTop:"10px"}} >Upload</Button>
+
                 </Box>
               </Modal>
             </div>
