@@ -101,16 +101,13 @@ const Login = () => {
         <div className='password'>
                     <TextField id="outlined3"  name='password' onChange={addinfo}type={openeye ? "text" : "password"} label="Password" variant="outlined" />
                     {openeye &&   <FaRegEye className='eye' onClick={()=>{setopeneye(!openeye)}}/>}
-                    {!openeye &&    <TbEyeClosed className='eye'onClick={()=>{setopeneye(!openeye)}}/>}
-
+                    {!openeye &&  <TbEyeClosed className='eye'onClick={()=>{setopeneye(!openeye)}}/>}
                 </div>
         {errordata.password && <div className='alart'  ><h2><FaExclamationCircle className='alart_icn_lgin' />{errordata.password}</h2></div>}
         <Button onClick={handleclick} className='reg_btn' variant="contained">Login to Continue</Button>   
         <p className='forlink'><Link to={"/Forgot"}>forgot password?</Link></p>
-
       </div>    
     </div>
-
   </Grid>
   <Grid  xs={6}>
     <Images  className="hhh" src={"./src/assets/reg_bnr.png"}/>

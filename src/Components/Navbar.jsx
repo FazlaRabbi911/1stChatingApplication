@@ -13,10 +13,13 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 // modal 
 // firebase
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, updateProfile } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { activeuser } from '../userslice';
 // firebase
+// firebase file upload 
+import { getStorage, ref, uploadString ,getDownloadURL } from "firebase/storage";
+// firebase file upload 
 // croper
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -56,22 +59,23 @@ const Navbar = () => {
   const handleClosemodaltwo = () => setOpenmodaltwo(false);
   // modal 2
   // croper
-  const [image, setImage] = useState(defaultSrc);
+  const [image, setImage] = useState();
   const [cropData, setCropData] = useState("#");
   const cropperRef = createRef();
   // croper
+  // file base file upload 
+  const storage = getStorage();
+  // file base file upload 
   let handlelogout=()=>{
     signOut(auth).then(() => {
       localStorage.removeItem("userAppdata")
       dispatch(activeuser(null))
       navigation("/login")
-      console.log("yess")
     }).catch((error) => {
       console.log(error)
     });
   }
   // croper
-
   // profile upload 
   const handelimgupload = (e) => {
     e.preventDefault();
@@ -88,11 +92,26 @@ const Navbar = () => {
     };
     console.log(files)
   };
-  
    // profile upload 
   //  crope data
   const getCropData = () => {
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+    const storageRef = ref(storage, `profile-${userinfo.uid}`);
+
+      const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+      uploadString(storageRef, message4, 'data_url').then((snapshot) => {
+
+        getDownloadURL(storageRef).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          updateProfile(auth.currentUser, {
+            photoURL: downloadURL,
+          }).then(()=>{
+            localStorage.setItem("userAppdata",JSON.stringify({...userinfo,photoURL:downloadURL}))
+            // userAppdata is the key name of application data in web 
+            // JSON.stringify making (userCredential.user) object to string 
+            dispatch(activeuser({...userinfo,photoURL:downloadURL}))
+          })
+        });
+      });
   };
   // crope data 
   return (
@@ -131,6 +150,7 @@ const Navbar = () => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style}>
+                  {image && 
                     <div className='box'>
                       <h1>Preview</h1>
                       <div
@@ -138,30 +158,36 @@ const Navbar = () => {
                         style={{ width: "200px", float: "left", height: "200px" ,borderRadius:"50%"}}
                       />
                     </div>
-                  <Typography id="modal-modal-title" variant="h6" component="h2">
-                    <input onChange={handelimgupload} type="file" />
-                  </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  }
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                      <input onChange={handelimgupload} type="file" />
+                    </Typography>
+                  {image &&
+                    <>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
-                    {/* coper code  */}
-                    <Cropper
-                      ref={cropperRef}
-                      style={{ height: 400, width: "100%" }}
-                      zoomTo={0.5}
-                      initialAspectRatio={1}
-                      preview=".img-preview"
-                      src={image}
-                      viewMode={1}
-                      minCropBoxHeight={10}
-                      minCropBoxWidth={10}
-                      background={false}
-                      responsive={true}
-                      autoCropArea={1}
-                      checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                      guides={true}
-                    />
-                    {/* coper code  */}
-                  </Typography>
+                      {/* coper code  */}
+                      <Cropper
+                        ref={cropperRef}
+                        style={{ height: 400, width: "100%" }}
+                        zoomTo={0.5}
+                        initialAspectRatio={1}
+                        preview=".img-preview"
+                        src={image}
+                        viewMode={1}
+                        minCropBoxHeight={10}
+                        minCropBoxWidth={10}
+                        background={false}
+                        responsive={true}
+                        autoCropArea={1}
+                        checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                        guides={true}
+                      />
+                      {/* coper code  */}
+                    </Typography>
+                    </>
+                  }
+
                   <Button   variant="contained" onClick={getCropData} style={{marginTop:"10px"}} >Upload</Button>
 
                 </Box>
