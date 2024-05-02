@@ -106,21 +106,21 @@ const Navbar = () => {
             photoURL: downloadURL,
           }).then(()=>{
             localStorage.setItem("userAppdata",JSON.stringify({...userinfo,photoURL:downloadURL}))
-            // userAppdata is the key name of application data in web 
-            // JSON.stringify making (userCredential.user) object to string 
+            // userAppdata is the key name of application data in web
+            // JSON.stringify making (userCredential.user) object to string
             dispatch(activeuser({...userinfo,photoURL:downloadURL}))
           })
         });
       });
   };
-  // crope data 
+  // crope data
   return (
     <div className='Navbox'>
       <div className="Navpro" onClick={handleOpenmodaltwo}>
         <Images  className="Navpro_img"  src={userinfo.photoURL} alt="Main Profile Picture"/>
         <h2>{userinfo.displayName}</h2>
       </div>
-          <div className="naviconmain">
+        <div className="naviconmain">
             <div> <Link className={location.pathname =="/home/feed" && "active"} to='/home/feed'><FaHome className='icon'/></Link> </div>
             <div ><Link className={location.pathname =="/home/massage" && "active"}  to='/home/massage'><AiOutlineMessage className='icon ' /></Link> </div>
             <div><Link  className={location.pathname =="/home/notification" && "active"}  to='/home/notification'><FaBell className='icon'/></Link></div>
@@ -165,7 +165,6 @@ const Navbar = () => {
                   {image &&
                     <>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
                       {/* coper code  */}
                       <Cropper
                         ref={cropperRef}

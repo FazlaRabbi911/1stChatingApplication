@@ -95,6 +95,8 @@
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
+  overflow: hidden;
+
 }
 .Navpro{
   width: 100%;
@@ -168,4 +170,51 @@
 }
 .img-preview {
   overflow: hidden;
+}
+.Boxcontainer{
+  height: 347px;
+  margin-left:10px;
+  -webkit-box-shadow: -1px 2px 5px 4px rgba(0,0,0,0.12);
+  -moz-box-shadow: -1px 2px 5px 4px rgba(0,0,0,0.12);
+  box-shadow: -1px 2px 5px 4px rgba(0,0,0,0.12);
+  background-color: aliceblue;
+  padding: 10px;
+  overflow:scroll;
+  margin-top: 25px;
+
+}
+.GrpTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.GrpTitle h2{
+  font-size: 20px;
+  font-weight: 700;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.grpBox{
+  align-items: center;
+  display: flex;
+  column-gap: 20px;
+  padding: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #000000;
+}
+.grpBox:last-child{
+  border-bottom: 0px solid #000000;
+
+}
+.grpBox h2{
+  font-size: 20px;
+  font-weight: 500;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.grpBox p{
+  font-size: 15px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 400;
 }

@@ -15,10 +15,10 @@ const Home = () => {
   },[])
   return (
     <Grid container spacing={2}>
-    <Grid item xs={4}>
+    <Grid item xs={1.6}>
       <Navbar/>
     </Grid>
-    <Grid item xs={8}>
+    <Grid item xs={10.4}>
       <h2><Outlet/></h2>
     </Grid>
   </Grid>
