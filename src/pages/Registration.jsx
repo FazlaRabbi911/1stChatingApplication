@@ -19,11 +19,14 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getDatabase, ref, set } from "firebase/database";
 
 
 
 
 const Registration = () => {
+    const db = getDatabase();
+
     let activedata = useSelector((state)=>state?.storeuser?.value)
     useEffect(()=>{
       if(activedata?.email){
@@ -73,6 +76,12 @@ const Registration = () => {
                 .then((userCredential) => {
                     updateProfile(auth.currentUser, {
                         displayName: Regdata.name , photoURL: "https://firebasestorage.googleapis.com/v0/b/newro-1abfe.appspot.com/o/1st%2F8ed3d547-94ff-48e1-9f20-8c14a7030a02_2000x2000.jpg?alt=media&token=42a83050-12f6-4e90-86ec-5c82d5386c15"
+                      }).then(()=>{
+                        set(ref(db, 'users/' + userCredential.user.uid), {
+                            username: Regdata.name,
+                            email: Regdata.email,
+                            photoURL : userCredential.user.photoURL
+                          });
                       }).then(() => {
                         setloading(false)
                         sendEmailVerification(auth.currentUser)
