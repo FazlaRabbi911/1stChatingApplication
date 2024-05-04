@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Images from '../Components/Images';
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, push ,set } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const UserList = () => {
   const db = getDatabase();
   let currentUser = useSelector(state=>state.storeuser.value)
-  console.log(currentUser.uid)
   const userRef = ref(db, "users");
   let [userList,setuserList] =useState([''])
   useEffect(()=>{
+    // all user data ana hoise
     onValue(userRef, (snapshot) => {
       let arry = []
       snapshot.forEach((item)=>{
         if(currentUser.uid !== item.key ){
           arry.push({
+            userUid:item.key,
             username:item.val().username,
             email:item.val().email
           });
-          console.log(item.key)
         }
       });
       setuserList(arry)
     });
   },[])
+  let handleFrndRequest=(item)=>{
+    set(push(ref(db, 'FriendRequest/')), {
+      whoreciveRequest: item.userUid,
+      whoreciveRequestName:item.username,
+      whoSendRequest: currentUser.uid,
+      whosendRequestName: currentUser.displayName
+    });
+    console.log(item.userUid,item.username,currentUser.uid,currentUser.displayName)
+  }
 
   return (
     <div className='Boxcontainer'>
@@ -39,7 +48,7 @@ const UserList = () => {
             <h2>{item.username}</h2>
             <p>Hi Guys, Wassup!</p>
           </div>
-          <Button variant="contained">+</Button>
+          <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>
         </div>
         ))}
 
