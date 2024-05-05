@@ -23,7 +23,6 @@ const FriendReaquest = () => {
       setrqdata(arry)
     });
   },[])
-
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
