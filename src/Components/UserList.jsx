@@ -32,9 +32,8 @@ const UserList = () => {
       whoSendRequest: currentUser.uid,
       whosendRequestName: currentUser.displayName
     });
-    console.log(item.userUid,item.username,currentUser.uid,currentUser.displayName)
+    // console.log(item.userUid,item.username,currentUser.uid,currentUser.displayName)
   }
-
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
