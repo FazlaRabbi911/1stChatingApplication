@@ -17,12 +17,15 @@ const FriendReaquest = () => {
       let arry =[]
       snapshot.forEach((item)=>{
         if(activeData.value.uid == item.val().whoreciveRequest ){
-          arry.push(item.val())
+          arry.push(...item.val())
         }
       })
       setrqdata(arry)
     });
   },[])
+  // let handleAccept =(item)=>{
+  //   console.log(item)
+  // }
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -35,7 +38,7 @@ const FriendReaquest = () => {
               <h2>{item.whosendRequestName}</h2>
               <p>Wassup!</p>
             </div>
-            <Button variant="contained">Accept</Button>
+            <Button variant="contained"  >Accept</Button>
         </div>
        ))}
     </div>
