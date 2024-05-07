@@ -21,11 +21,14 @@ const FriendReaquest = () => {
         }
       })
       setrqdata(arry)
+      console.log(arry)
     });
   },[])
   // let handleAccept =(item)=>{
   //   console.log(item)
   // }
+      console.log(rqdata.map(item=>(item.whosendRequestName)))
+
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -38,9 +41,10 @@ const FriendReaquest = () => {
               <h2>{item.whosendRequestName}</h2>
               <p>Wassup!</p>
             </div>
-            <Button variant="contained"  >Accept</Button>
+            <Button variant="contained" >Accept</Button>
         </div>
        ))}
+       
     </div>
   )
 }
