@@ -8,7 +8,8 @@ const UserList = () => {
   const db = getDatabase();
   let currentUser = useSelector(state=>state.storeuser.value)
   const userRef = ref(db, "users");
-  let [userList,setuserList] =useState([''])
+  let [userList,setuserList] =useState([ ])
+  let [userFriendList,setuserFriendList] =useState([])
   useEffect(()=>{
     // all user data ana hoise
     onValue(userRef, (snapshot) => {
@@ -25,6 +26,18 @@ const UserList = () => {
       setuserList(arry)
     });
   },[])
+
+  useEffect(()=>{
+    const starCountRef = ref(db, 'FriendRequest');
+    onValue(starCountRef, (snapshot) => {
+      let array = []
+      snapshot.forEach((item)=>{
+        array.push(item.val().whoreciveRequest + item.val().whoSendRequest)
+      })
+      setuserFriendList(array)
+    });
+  },[])
+ 
   let handleFrndRequest=(item)=>{
     set(push(ref(db, 'FriendRequest/')), {
       whoreciveRequest: item.userUid,
@@ -32,8 +45,10 @@ const UserList = () => {
       whoSendRequest: currentUser.uid,
       whosendRequestName: currentUser.displayName
     });
-    // console.log(item.userUid,item.username,currentUser.uid,currentUser.displayName)
   }
+  console.log(userFriendList)
+   userList.map((item)=>console.log(userFriendList.includes(item.whoreciveRequest + item.whoSendRequest)))
+
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -47,7 +62,13 @@ const UserList = () => {
             <h2>{item.username}</h2>
             <p>Hi Guys, Wassup!</p>
           </div>
-          <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>
+          {userFriendList.includes( + item.whoSendRequest) || userFriendList.includes(item.whoSendRequest +  item.whoreciveRequest)
+            ?
+            (<Button variant="contained" disabled >pendding</Button>)
+            :
+           ( <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>)
+          }
+          
         </div>
         ))}
 

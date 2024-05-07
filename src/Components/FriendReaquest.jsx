@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Images from '../Components/Images';
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue,set,push,remove} from "firebase/database";
 import {  useSelector } from 'react-redux';
 
 
@@ -17,18 +17,26 @@ const FriendReaquest = () => {
       let arry =[]
       snapshot.forEach((item)=>{
         if(activeData.value.uid == item.val().whoreciveRequest ){
-          arry.push(...item.val())
+          arry.push({
+            ...item.val(),
+            id:item.key
+          })
         }
       })
       setrqdata(arry)
-      console.log(arry)
     });
   },[])
   // let handleAccept =(item)=>{
   //   console.log(item)
   // }
-      console.log(rqdata.map(item=>(item.whosendRequestName)))
+  let handleAcept =(item)=>{
+    console.log(item)
 
+
+    set(push(ref(db, 'friend/')), {
+      ...item
+    }).then(()=>{remove(ref(db, 'FriendRequest'))})
+  }
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -41,7 +49,7 @@ const FriendReaquest = () => {
               <h2>{item.whosendRequestName}</h2>
               <p>Wassup!</p>
             </div>
-            <Button variant="contained" >Accept</Button>
+            <Button variant="contained" onClick={()=>handleAcept(item)}>Accept</Button>
         </div>
        ))}
        
