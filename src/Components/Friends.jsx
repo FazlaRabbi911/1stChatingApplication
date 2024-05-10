@@ -26,21 +26,21 @@ const Friends = () => {
   let handleblock = (item)=>{
     if(activeData.value.uid == item.whoSendRequest){
       set(push(ref(db, 'block')),{
-        block_By_Name: activeData.displayName,
+        block_By_Name: activeData.value.displayName,
         block_By_Id: activeData.value.uid,
         blocked_id_Name: item.whoreciveRequestName,
         blocked_Id: item.whoreciveRequest,
       }).then(()=>{
-        remove(ref(db,'friend/' + item.Fid))
+        remove(ref(db,"friend/" + item.Fid))
       });
     }else{
       set(push(ref(db, 'block')),{
-        block_By_Name: activeData.displayName,
+        block_By_Name: activeData.value.displayName,
         block_By_Id: activeData.value.uid,
         blocked_id_Name: item.whosendRequestName,
         blocked_Id: item.whoSendRequest,
       }).then(()=>{
-        remove(ref(db,'friend/' + item.Fid))
+        remove(ref(db,"friend/" + item.Fid))
       });
     }
   }
