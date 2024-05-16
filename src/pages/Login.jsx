@@ -106,6 +106,8 @@ const Login = () => {
         {errordata.password && <div className='alart'  ><h2><FaExclamationCircle className='alart_icn_lgin' />{errordata.password}</h2></div>}
         <Button onClick={handleclick} className='reg_btn' variant="contained">Login to Continue</Button>   
         <p className='forlink'><Link to={"/Forgot"}>forgot password?</Link></p>
+        <p className='forlink'><Link to={"/"}>Dont have account ? Registration</Link></p>
+
       </div>    
     </div>
   </Grid>

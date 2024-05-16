@@ -31,7 +31,10 @@
 }
 .reg_p{
   font-size: 14px;
+  margin-top: 20px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgba(0, 13, 255, 0.632);
+  cursor: pointer;
 }
 .reg_error{
   margin-left: 15px;

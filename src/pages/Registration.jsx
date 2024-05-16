@@ -166,7 +166,7 @@ const Registration = () => {
                     wrapperClass=""
                     />
                 }
-                <p className='reg_p'>Already  have an account ? Sign In</p>
+                <p className='reg_p' onClick={()=>navigate("/login")} >Already  have an account ? Sign In</p>
             </div>
         </div>
       </h2>
