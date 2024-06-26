@@ -30,13 +30,16 @@ const FriendReaquest = () => {
   //   console.log(item)
   // }
   let handleAcept =(item)=>{
-    console.log(item)
-
-
     set(push(ref(db, 'friend/')), {
       ...item
-    }).then(()=>{remove(ref(db, 'FriendRequest'))})
+    }).then(()=>{remove(ref(db, 'FriendRequest/' + id ))})
   }
+
+  let handleDelete =(id)=>{
+    remove(ref(db,"FriendRequest/" + id))
+    console.log("tyess" ,id)
+  }
+
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -50,6 +53,7 @@ const FriendReaquest = () => {
               <p>Wassup!</p>
             </div>
             <Button variant="contained" onClick={()=>handleAcept(item)}>Accept</Button>
+            <Button variant="contained" onClick={()=>handleDelete(item.id)} color="error">Cancel</Button>
         </div>
        ))}
        
