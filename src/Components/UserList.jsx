@@ -11,6 +11,7 @@ const UserList = () => {
   let [userList,setuserList] =useState([ ])
   let [userFriendList,setuserFriendList] =useState([])
   let [Friends,setFriends] =useState([])
+  let [block,setblock] =useState([])
 
   useEffect(()=>{
     // all user data ana hoise
@@ -54,9 +55,19 @@ const UserList = () => {
       })
       setFriends(array)
     });
+
+    const starblock = ref(db, 'block');
+    onValue(starblock, (snapshot) => {
+      let array = []
+      snapshot.forEach((item)=>{
+        array.push(item.val().block_By_Id + item.val().blocked_Id)
+      })
+      setblock(array)
+    });
   },[]);
-
-
+// console.log(block.includes(blocked_Id == currentUser.uid))
+ let blockedperson = (block.blocked_Id == userList.userUid)
+  console.log(blockedperson)
   let handleFrndRequest=(item)=>{
     set(push(ref(db, 'FriendRequest/')), {
       whoreciveRequest: item.userUid,
@@ -65,7 +76,7 @@ const UserList = () => {
       whosendRequestName: currentUser.displayName
     });
   }
-  // console.log(userFriendList)
+  console.log(userFriendList)
   //  userList.map((item)=>console.log(userFriendList.includes(item.userUid + currentUser.uid)) )
   return (
     <div className='Boxcontainer'>
@@ -84,14 +95,27 @@ const UserList = () => {
             ?
             (<Button variant="contained" disabled >pendding</Button>)
             :
-            Friends.includes(item.userUid + currentUser.uid) || Friends.includes(currentUser.uid + item.userUid )
+            Friends.includes(item.userUid + currentUser.uid) ||
+             Friends.includes(currentUser.uid + item.userUid )
             ?
-            ( <Button variant="contained" style={{backgroundColor:"lightgreen", color:"white"}} >friend</Button>) 
+            ( <Button variant="contained" style={{backgroundColor:"lightgreen", color:"white"}} >
+              friend
+              </Button>) 
             :
-           ( <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>)
+            block.includes(item.userUid + currentUser.uid) ||
+            block.includes(currentUser.uid + item.userUid )
+            ?
+            ( <Button variant="contained" color="error" >block</Button>) 
+            :
+            ( <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>)
+
           }
+            
+
+          
         </div>
         ))}
+
     </div>
   )
 }

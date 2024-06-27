@@ -32,12 +32,11 @@ const FriendReaquest = () => {
   let handleAcept =(item)=>{
     set(push(ref(db, 'friend/')), {
       ...item
-    }).then(()=>{remove(ref(db, 'FriendRequest/' + id ))})
+    }).then(()=>{remove(ref(db, 'FriendRequest/' + item.id ))})
   }
 
   let handleDelete =(id)=>{
     remove(ref(db,"FriendRequest/" + id))
-    console.log("tyess" ,id)
   }
 
   return (

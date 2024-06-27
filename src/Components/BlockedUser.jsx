@@ -27,7 +27,9 @@ const BlockedUser = () => {
        <div className="GrpTitle">
           <h2 >Block List</h2>
        </div>
+
        {blockdata.map((item)=>
+
         <div className="grpBox">
         <div><Images src={"../src/assets/group-profile.png"}/></div>
         <div>
@@ -42,7 +44,7 @@ const BlockedUser = () => {
           <p>Hi Guys, Wassup!</p>
         </div>
         {item.block_By_Id == activeData.uid &&
-        <Button variant="contained">Unblock</Button>
+        <Button variant="contained" >Unblock</Button>
         }
         </div>
        )} 
