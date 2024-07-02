@@ -76,7 +76,6 @@ const UserList = () => {
       whosendRequestName: currentUser.displayName
     });
   }
-  console.log(userFriendList)
   //  userList.map((item)=>console.log(userFriendList.includes(item.userUid + currentUser.uid)) )
   return (
     <div className='Boxcontainer'>

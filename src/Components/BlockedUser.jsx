@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Images from '../Components/Images';
-import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, onValue, remove} from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const BlockedUser = () => {
@@ -10,18 +10,23 @@ const BlockedUser = () => {
   let activeData = useSelector((state)=>state.storeuser.value)
 
   useEffect(()=>{
-    const blockRef = ref(db, 'block');
+      const blockRef = ref(db, 'block');
     onValue(blockRef, (snapshot) => {
       let blockarray = []
       snapshot.forEach((item)=>{
         if(activeData.uid == item.val().block_By_Id || activeData.uid == item.val().blocked_Id){
-          blockarray.push(item.val())          
+          blockarray.push({...item.val(),blockID:item.key})          
         }
       })
       setblockdata(blockarray)
+      console.log(blockarray)
      });
-  },[])
-  console.log(blockdata.map(item=>item.blocked_id_Name))
+  },[]);
+
+  let handleUnblock =(blockID)=>{
+    remove(ref(db, "block/" + blockID ))
+  }
+
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -43,8 +48,10 @@ const BlockedUser = () => {
           }
           <p>Hi Guys, Wassup!</p>
         </div>
-        {item.block_By_Id == activeData.uid &&
-        <Button variant="contained" >Unblock</Button>
+        {item.block_By_Id == activeData.uid  ?
+        <Button variant="contained" color="success" onClick={()=>handleUnblock(item.blockID)} >Unblock</Button>
+        :
+        <Button variant="contained" color="error">Blocked</Button>
         }
         </div>
        )} 
