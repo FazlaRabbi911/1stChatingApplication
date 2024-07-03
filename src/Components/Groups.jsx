@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Images from '../Components/Images';
 
@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import TextField from '@mui/material/TextField';
-import { getDatabase, ref, set,push } from "firebase/database";
+import { getDatabase, ref, set,push, onValue } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const style = {
@@ -24,18 +24,44 @@ const style = {
 
 const Groups = () => {
   let currentUser = useSelector(state=>state.storeuser.value)
-
+  let [Mygroup,setMygroup] = useState([''])
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let [groupname,setgroupname] = useState('')
   const db = getDatabase();
 
+  useEffect(()=>{
+    const Groupdata = ref(db, "group");
+
+    onValue(Groupdata, (snapshot) => {
+      let arry = []
+      snapshot.forEach((item)=>{
+        if(currentUser.uid !== item.val().adminUid){
+          arry.push({...item.val(),grpID:item.key})
+        }
+      })
+      setMygroup(arry)
+    });
+
+  },[])
+
   let handleCreat=()=>{
     set(push(ref(db, 'group')), {
       Groupname:groupname,
       adminName: currentUser.displayName,
       adminUid : currentUser.uid,
+    });
+    handleClose()
+  }
+  let handleJoin=(item)=>{
+    console.log(item)
+    set(push(ref(db, 'groupJoinRequest/')), {
+      groupID: item.grpID,
+      groupName:item.Groupname,
+      adminUid: item.adminUid,
+      whoWantTojoinUid : currentUser.uid,
+      whoWantTojoinName : currentUser.displayName
     });
   }
   return (
@@ -44,20 +70,22 @@ const Groups = () => {
           <h2 >Groups List</h2>
           <Button variant="contained"  onClick={handleOpen}>Creat Group</Button>
        </div>
-       <div className="grpBox">
-          <div><Images src={"../src/assets/group-profile.png"}/></div>
-          <div>
-            <h2>Friends Reunion</h2>
-            <p>Hi Guys, Wassup!</p>
-          </div>
-          <Button variant="contained">Join</Button>
-       </div>
+       { Mygroup.map((item)=>(
+        <div className="grpBox">
+        <div><Images src={"../src/assets/group-profile.png"}/></div>
+        <div>
+          <h2>{item.Groupname}</h2>
+          <p>Admin : {item.adminName}</p>
+        </div>
+        <Button variant="contained" onClick={()=>handleJoin(item)}>Join</Button>
+        </div>
+       ))}
        <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
           <TextField id="outlined-basic" label="Outlined" variant="outlined"  onChange={(e)=>setgroupname(e.target.value)}/>
