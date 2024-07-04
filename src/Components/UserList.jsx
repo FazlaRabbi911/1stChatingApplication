@@ -67,7 +67,6 @@ const UserList = () => {
   },[]);
 // console.log(block.includes(blocked_Id == currentUser.uid))
  let blockedperson = (block.blocked_Id == userList.userUid)
-  console.log(blockedperson)
   let handleFrndRequest=(item)=>{
     set(push(ref(db, 'FriendRequest/')), {
       whoreciveRequest: item.userUid,

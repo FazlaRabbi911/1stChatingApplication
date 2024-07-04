@@ -49,7 +49,7 @@ const MyGroups = () => {
       setMygroupMygroupRequest(arry)
     });
   };
-  console.log(MygroupRequest)
+
   const handleClose = () => setOpen(false);
   const db = getDatabase();
   // modal

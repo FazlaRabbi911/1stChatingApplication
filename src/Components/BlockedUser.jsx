@@ -19,7 +19,6 @@ const BlockedUser = () => {
         }
       })
       setblockdata(blockarray)
-      console.log(blockarray)
      });
   },[]);
 

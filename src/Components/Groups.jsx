@@ -23,14 +23,17 @@ const style = {
 };
 
 const Groups = () => {
+
+  let [MygroupRequest,setMygroupMygroupRequest] = useState([''])
   let currentUser = useSelector(state=>state.storeuser.value)
   let [Mygroup,setMygroup] = useState([''])
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let [groupname,setgroupname] = useState('')
-  const db = getDatabase();
 
+
+  const db = getDatabase();
   useEffect(()=>{
     const Groupdata = ref(db, "group");
 
@@ -45,6 +48,7 @@ const Groups = () => {
     });
 
   },[])
+  
 
   let handleCreat=()=>{
     set(push(ref(db, 'group')), {
@@ -64,6 +68,23 @@ const Groups = () => {
       whoWantTojoinName : currentUser.displayName
     });
   }
+  useEffect(()=>{
+    const GroupRequestdata = ref(db, "groupJoinRequest");
+    onValue(GroupRequestdata, (snapshot) => {
+      let arry = []
+      snapshot.forEach((item)=>{
+          arry.push(item.val())
+      })
+      setMygroupMygroupRequest(arry)
+    });
+  },[])
+
+
+  let pendingRequestForAdminGroup = MygroupRequest.some(
+    (request) => request.whoWantTojoinUid === currentUser.uid
+  );
+  console.log(currentUser.uid )
+  console.log(pendingRequestForAdminGroup)
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -71,13 +92,24 @@ const Groups = () => {
           <Button variant="contained"  onClick={handleOpen}>Creat Group</Button>
        </div>
        { Mygroup.map((item)=>(
+        
         <div className="grpBox">
         <div><Images src={"../src/assets/group-profile.png"}/></div>
         <div>
           <h2>{item.Groupname}</h2>
           <p>Admin : {item.adminName}</p>
         </div>
-        <Button variant="contained" onClick={()=>handleJoin(item)}>Join</Button>
+          
+        {MygroupRequest.some(
+    (request) => request.whoWantTojoinUid === currentUser.uid
+  ) ? (
+          <Button variant="contained">Pending (Admin)</Button>
+          ) : (
+          <Button variant="contained" onClick={() => handleJoin(item)}>
+            Join
+          </Button>
+        )}
+
         </div>
        ))}
        <Modal
