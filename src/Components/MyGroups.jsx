@@ -8,14 +8,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 // modal
-// list
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-// list
+// modal 2
+
+// modal 2
+
+
+
+// popup
 const style = {
   position: 'absolute' ,
   top: '50%',
@@ -36,7 +35,6 @@ const MyGroups = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = (info) =>  {
     setOpen(true)
-
     const GroupRequestdata = ref(db, "groupJoinRequest");
     onValue(GroupRequestdata, (snapshot) => {
       let arry = []
@@ -44,7 +42,6 @@ const MyGroups = () => {
         if(item.val().groupID == info.mygrpKey){
           arry.push({...item.val(),grpRQId:item.key})
         }
-        // console.log({...item.val(),grpRQId:item.key})
       })
       setMygroupMygroupRequest(arry)
     });
@@ -75,6 +72,14 @@ const MyGroups = () => {
   let handleRemove=(item)=>{
     remove(ref(db, "groupJoinRequest/" + item.grpRQId))
   }
+//  modal 2
+  
+//  modal 2
+
+  let handlemember =()=>{
+
+  }
+
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -88,6 +93,9 @@ const MyGroups = () => {
           <p>admin : {item.adminName}</p>
         </div>
         <Button variant="contained" onClick={()=>handleOpen(item)}>Request</Button>
+        <Button variant="contained" onClick={()=>handlemember(item)}>
+dd
+        </Button>
         </div>
        ))}
       <div>
@@ -99,7 +107,7 @@ const MyGroups = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
+              member request
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

@@ -68,23 +68,19 @@ const Groups = () => {
       whoWantTojoinName : currentUser.displayName
     });
   }
+  let GGG = Mygroup.map((item)=>item.adminUid)
   useEffect(()=>{
     const GroupRequestdata = ref(db, "groupJoinRequest");
     onValue(GroupRequestdata, (snapshot) => {
       let arry = []
       snapshot.forEach((item)=>{
-          arry.push(item.val())
+          arry.push(item.val().whoWantTojoinUid + item.val().groupID )
       })
       setMygroupMygroupRequest(arry)
     });
   },[])
+  
 
-
-  let pendingRequestForAdminGroup = MygroupRequest.some(
-    (request) => request.whoWantTojoinUid === currentUser.uid
-  );
-  console.log(currentUser.uid )
-  console.log(pendingRequestForAdminGroup)
   return (
     <div className='Boxcontainer'>
        <div className="GrpTitle">
@@ -99,16 +95,16 @@ const Groups = () => {
           <h2>{item.Groupname}</h2>
           <p>Admin : {item.adminName}</p>
         </div>
-          
-        {MygroupRequest.some(
-    (request) => request.whoWantTojoinUid === currentUser.uid
-  ) ? (
-          <Button variant="contained">Pending (Admin)</Button>
-          ) : (
-          <Button variant="contained" onClick={() => handleJoin(item)}>
-            Join
-          </Button>
-        )}
+        { MygroupRequest.includes(item.grpID + currentUser.uid) || MygroupRequest.includes( currentUser.uid + item.grpID) 
+        ?
+       ( <Button variant="contained" color="success">
+        pending 
+      </Button>)
+        :
+        (<Button variant="contained" onClick={() => handleJoin(item)}>
+        join
+        </Button>)
+        }
 
         </div>
        ))}
