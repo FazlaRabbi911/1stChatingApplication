@@ -126,6 +126,7 @@ const Registration = () => {
     }
   return (
     <Grid container spacing={2}>
+    
     <Grid  xs={8} >
       <h2 >
         <div className='reg_box'>
