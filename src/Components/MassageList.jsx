@@ -23,7 +23,7 @@ const style = {
 };
 
 const MassageList = () => {
-
+  
   let [MygroupRequest,setMygroupMygroupRequest] = useState([''])
   let currentUser = useSelector(state=>state.storeuser.value)
   let [Mygroup,setMygroup] = useState([''])

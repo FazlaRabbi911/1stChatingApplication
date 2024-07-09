@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Images from '../Components/Images';
 import { getDatabase, ref, onValue, remove,push ,set} from "firebase/database";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { msgActive } from '../massageActiveslice';
 
 
 const Friends = () => {
   const db = getDatabase();
   let [FriendsData,setFriendsdata] = useState([])
-  let activeData =useSelector((state)=>state.storeuser)
-
+  let activeData = useSelector((state)=>state.storeuser)
+  let dispatch = useDispatch()
   useEffect(()=>{
     const friendData = ref(db, 'friend');
     onValue(friendData, (snapshot) => {
@@ -44,19 +45,38 @@ const Friends = () => {
       });
     }
   }
+  let handleActiveMsg = (item)=>{
+    if(activeData.value.uid === item.whoSendRequest){
+      localStorage.setItem("ActiveuserForTextBox",JSON.stringify(
+        {activeChatId:item.whoreciveRequest,
+          name:item.whoreciveRequestName
+        }))
+      dispatch(msgActive({activeChatId:item.whoreciveRequest,
+        name:item.whoreciveRequestName
+      }))
+    }else{
+      localStorage.setItem("ActiveuserForTextBox",JSON.stringify(
+        {activeChatId:item.whoSendRequest,
+          name:item.whosendRequestName
+        }))
+      dispatch(msgActive({activeChatId:item.whoSendRequest,
+        name:item.whosendRequestName
+      }))
+    }
+  }
   return (
     <div className='Boxcontainer' >
        <div className="GrpTitle">
           <h2>Friends</h2>
        </div>
        { FriendsData.map((item)=>
-          <div className="grpBox">
+          <div className="grpBox " onClick={()=>handleActiveMsg(item)}>
           <div><Images src={"../src/assets/group-profile.png"}/></div>
           <div>
             {
               item.whoreciveRequest == activeData.value.uid 
               ?
-              <h2>{item.whosendRequestName}</h2>
+              <h2 >{item.whosendRequestName}</h2>
               :
               <h2>{item.whoreciveRequestName}</h2>
             }

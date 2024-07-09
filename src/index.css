@@ -264,3 +264,30 @@
   word-break: break-all;
 
 }
+.writingbox{
+  background-color: #ffff;
+  margin-top: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.writingbox input{
+  width: 75%;
+  height: 30px;
+  margin: 5px;
+  border-radius: 20px;
+  border-color: #d7cbfa;
+  text-align: left;
+  padding-left: 10px;
+}
+.writingbox button{
+  color: #ffff;
+  background-color: black;
+  padding: 5px;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: right;
+  margin-left: 10px;
+
+}
