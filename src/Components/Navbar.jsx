@@ -97,6 +97,7 @@ const Navbar = () => {
   const getCropData = () => {
     const storageRef = ref(storage, `profile-${userinfo.uid}`);
       const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+      
       uploadString(storageRef, message4, 'data_url').then((snapshot) => {
         getDownloadURL(storageRef).then((downloadURL) => {
           updateProfile(auth.currentUser, {
