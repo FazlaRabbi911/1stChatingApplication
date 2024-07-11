@@ -40,7 +40,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-// modal css
+// modal css 
 
 const Navbar = () => {
   let userinfo = useSelector((state)=>state.storeuser.value)
@@ -96,12 +96,9 @@ const Navbar = () => {
   //  crope data
   const getCropData = () => {
     const storageRef = ref(storage, `profile-${userinfo.uid}`);
-
       const message4 = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
       uploadString(storageRef, message4, 'data_url').then((snapshot) => {
-
         getDownloadURL(storageRef).then((downloadURL) => {
-          console.log('File available at', downloadURL);
           updateProfile(auth.currentUser, {
             photoURL: downloadURL,
           }).then(()=>{
