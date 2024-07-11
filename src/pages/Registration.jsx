@@ -26,7 +26,6 @@ import { getDatabase, ref, set } from "firebase/database";
 
 const Registration = () => {
     const db = getDatabase();
-
     let activedata = useSelector((state)=>state?.storeuser?.value)
     useEffect(()=>{
       if(activedata?.email){
