@@ -24,7 +24,6 @@ const Feed = () => {
         <UserList/>
         <BlockedUser/>
       </Grid>
- 
   </Grid>
   )
 }

@@ -88,7 +88,6 @@ const Groups = () => {
           <Button variant="contained"  onClick={handleOpen}>Creat Group</Button>
        </div>
        { Mygroup.map((item)=>(
-        
         <div className="grpBox">
         <div><Images src={"../src/assets/group-profile.png"}/></div>
         <div>
@@ -105,7 +104,6 @@ const Groups = () => {
         join
         </Button>)
         }
-
         </div>
        ))}
        <Modal
