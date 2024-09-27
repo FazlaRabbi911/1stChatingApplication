@@ -106,11 +106,7 @@ const UserList = () => {
             ( <Button variant="contained" color="error" >block</Button>) 
             :
             ( <Button variant="contained" onClick={()=>handleFrndRequest(item)}>+</Button>)
-
           }
-            
-
-          
         </div>
         ))}
 
